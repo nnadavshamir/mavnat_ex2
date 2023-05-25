@@ -1,10 +1,12 @@
 #pragma once
 #include "Node.h"
+#include "MaxHeap.h"
 
-class MinHeap
-{
+#define MAX_SIZE 100
+
+class MinHeap {
 private:
-	Node data[100];
+	Node data[MAX_SIZE];
 	int count;
 	MaxHeap* linkedHeap;
 
