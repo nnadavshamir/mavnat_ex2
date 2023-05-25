@@ -21,8 +21,9 @@ private:
 public:
     Heap(bool);
     inline bool IsEmpty() const { return this->count == 0; }
+    inline Node** getHeap() { return heap; }
     void MakeEmpty();
     Node* Extreme();
-    void Insert(int, std::string, int);
+    void Insert(int, std::string);
     Node* DeleteExtreme();
 };
