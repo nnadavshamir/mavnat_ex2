@@ -1,6 +1,6 @@
 #include "Heap.h"
 
-Heap::Heap(bool _is_max_heap) : is_max_heap(_is_max_heap) {
+Heap::Heap(bool _is_max_heap) : is_max_heap(_is_max_heap), second_heap(nullptr), count(0) {
     for (int i = 0; i < MAX_SIZE; i++)
         this->heap[i] = nullptr;
 }
@@ -64,7 +64,7 @@ void Heap::updateIndex(int node_to_update_index, int _index) {
 Node* Heap::Extreme() {
     if (this->count == 0) return;
 
-    return *(this->heap[0]);
+    return this->heap[0];
 }
 
 Node* Heap::DeleteExtreme() {
@@ -76,13 +76,18 @@ Node* Heap::DeleteExtreme() {
     swap(this->heap[0], this->heap[this->count - 1]);
     updateIndex(this->heap[0]->second_heap_index, 0);
     Node* removed = this->heap[this->count - 1];
+    
+    // TODO: Remove from second list
+
     this->count--;
     fixHeapDown(0);
     return removed;
 }
 
-void Heap::Insert(int _priority, std::string _data, int _second_heap_index) {
-    Node *new_node = new Node(_priority, _data, _second_heap_index);
+void Heap::Insert(int _priority, std::string _data) {
+    Node *new_node = new Node(_priority, _data, NOT_SET);
     this->heap[this->count++] = new_node;
     fixHeapUp(this->count - 1);
+
+    // TODO: Add to second heap
 }
