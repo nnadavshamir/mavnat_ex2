@@ -24,8 +24,8 @@ void Heap::fixHeapUp(int index) {
     if ((this->is_max_heap && this->heap[parent_index]->priority < this->heap[index]->priority)
         || (!this->is_max_heap && this->heap[parent_index]->priority > this->heap[index]->priority)) {
         swap(this->heap[parent_index], this->heap[index]);
-        updateIndex(this->heap[parent_index]->second_heap_index, parent_index);
-        updateIndex(this->heap[index]->second_heap_index, index);
+        updateSelfIndexInSecondHeap(parent_index);
+        updateSelfIndexInSecondHeap(parent_index);
         fixHeapUp(parent_index);
     }
 }
@@ -50,15 +50,15 @@ void Heap::fixHeapDown(int index) {
 
     if (extreme_index != index) {
         swap(this->heap[extreme_index], this->heap[index]);
-        updateIndex(this->heap[extreme_index]->second_heap_index, extreme_index);
-        updateIndex(this->heap[index]->second_heap_index, index);
+        updateSelfIndexInSecondHeap(extreme_index);
+        updateSelfIndexInSecondHeap(index);
         fixHeapDown(extreme_index);
     }
 }
 
-void Heap::updateIndex(int node_to_update_index, int _index) {
-    if (node_to_update_index >= 0)
-        this->heap[node_to_update_index]->second_heap_index = _index;
+void Heap::updateSelfIndexInSecondHeap(int self) {
+    if (self >= 0)
+        this->second_heap->getHeap()[this->heap[self]->second_heap_index]->second_heap_index = self;
 }
 
 Node* Heap::Extreme() {
@@ -67,27 +67,27 @@ Node* Heap::Extreme() {
     return this->heap[0];
 }
 
-Node* Heap::DeleteExtreme() {
-    if (IsEmpty()) {
-        std::cout << "Heap is empty!" << std::endl;
-        return;
-    }
-
-    swap(this->heap[0], this->heap[this->count - 1]);
-    updateIndex(this->heap[0]->second_heap_index, 0);
-    Node* removed = this->heap[this->count - 1];
-    
-    // TODO: Remove from second list
-
-    this->count--;
-    fixHeapDown(0);
-    return removed;
-}
-
 void Heap::Insert(int _priority, std::string _data) {
     Node *new_node = new Node(_priority, _data, NOT_SET);
     this->heap[this->count++] = new_node;
     fixHeapUp(this->count - 1);
 
     // TODO: Add to second heap
+}
+
+Node* Heap::Delete(int index) {
+    if (index >= this->count) {
+        std::cout << "Heap is empty!" << std::endl;
+        return;
+    }
+
+    updateSelfIndexInSecondHeap(this->heap[index]->second_heap_index, 0);
+    swap(*this->heap[index], *this->heap[this->count - 1]);
+    Node* removed = this->heap[this->count - 1];
+
+    // TODO: Remove from second list
+
+    this->count--;
+    fixHeapDown(0);
+    return removed;
 }

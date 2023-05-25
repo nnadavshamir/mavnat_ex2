@@ -14,7 +14,7 @@ private:
     inline int getLeftChildIndex(int index) { return 2 * index + 1; }
     inline int getRightChildIndex(int index) { return 2 * index + 2; }
 
-    void updateIndex(int, int);
+    void updateSelfIndexInSecondHeap(int);
     void fixHeapUp(int);
     void fixHeapDown(int);
 
@@ -25,5 +25,6 @@ public:
     void MakeEmpty();
     Node* Extreme();
     void Insert(int, std::string);
-    Node* DeleteExtreme();
+    inline Node* DeleteExtreme() { return Delete(0); }
+    Node* Delete(int);
 };
