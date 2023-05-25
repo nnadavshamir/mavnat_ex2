@@ -1,5 +1,7 @@
 #pragma once
 #include <string>
+#include "MaxHeap.h"
+#include "MinHeap.h"
 
 class Manager
 {
