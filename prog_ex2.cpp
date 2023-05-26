@@ -64,7 +64,7 @@ int main()
 		}
 		else if (instructionType == 'e')
 		{
-			manager.CreateEmpty();
+			manager.MakeEmpty();
 		}
 		else if (instructionType == 'f')
 		{
