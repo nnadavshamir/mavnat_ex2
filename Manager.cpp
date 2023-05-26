@@ -17,10 +17,13 @@ Node Manager::Max() {
 }
 
 Node Manager::Min() {
-	if (!this->lowerMinHeap.getSize()) {
+	if (!upperMinHeap.getSize()) {
 		std::cout << "Heap is empty!" << std::endl;
 		return Node();
 	}
+
+	else if (upperMinHeap.getSize() == 1)
+		return this->upperMinHeap.Extreme();
 
 	return this->lowerMinHeap.Extreme();
 }
