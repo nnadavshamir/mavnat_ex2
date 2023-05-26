@@ -14,7 +14,7 @@ public:
 	void DeleteMax();
 	void Min();
 	void DeleteMin();
-	void CreateEmpty();
+	void MakeEmpty();
 	void Insert(int priority, std::string value);
 	void Median();
 };
