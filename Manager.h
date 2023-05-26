@@ -17,5 +17,6 @@ public:
 	void CreateEmpty();
 	void Insert(int priority, std::string value);
 	void Median();
+	bool IsEmpty();
 };
 

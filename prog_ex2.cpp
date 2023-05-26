@@ -1,20 +1,91 @@
-﻿// prog_ex2.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
+﻿#include <iostream>
+#include <string>
+#include "Manager.h"
+#include <sstream>
 
-#include <iostream>
+using namespace std;
+
+void assertNotEmpty(Manager manager) 
+{
+	if (manager.IsEmpty())
+	{
+		throw "Invalid! requested operation cannot be executed when empty";
+	}
+}
 
 int main()
 {
-    std::cout << "Hello World!\n";
+	int numOfInstructions;
+	Manager manager = Manager();
+	cin >> numOfInstructions;
+
+	if (numOfInstructions <= 0)
+	{
+		throw  "First input must be a positive integer";
+	}
+
+	string command;
+	char instructionType;
+	for (int i = 0; i < numOfInstructions; i++)
+	{
+		getline(cin, command);
+		instructionType = command[0];
+
+		if (i == 0 && instructionType != 'e')
+		{
+			throw "e command must be executed before any other command";
+		}
+
+		if (i != 0 && instructionType == 'e')
+		{
+			throw "e command can be executed only once";
+		}
+
+
+		if (instructionType == 'a')
+		{
+			assertNotEmpty(manager);
+			manager.Max();
+		}
+		else if (instructionType == 'b')
+		{
+			assertNotEmpty(manager);
+			manager.DeleteMax();
+		}
+		else if (instructionType == 'c')
+		{
+			assertNotEmpty(manager);
+			manager.Min();
+		}
+		else if (instructionType == 'd')
+		{
+			assertNotEmpty(manager);
+			manager.DeleteMin();
+		}
+		else if (instructionType == 'e')
+		{
+			manager.CreateEmpty();
+		}
+		else if (instructionType == 'f')
+		{
+			istringstream iss(command);
+			char type;
+			int priority;
+			string data;
+			iss >> type >> priority;
+			getline(iss >> ws, data);
+
+			manager.Insert(priority, data);
+		}
+		else if (instructionType == 'g')
+		{
+			assertNotEmpty(manager);
+			manager.Median();
+		}
+		else {
+			throw "Invalid Command! make sure you start with one of [a-g] letters";
+		}
+	}
+
+	return 0;
 }
-
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
-
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file
