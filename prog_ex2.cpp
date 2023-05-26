@@ -5,12 +5,15 @@
 
 using namespace std;
 
-void assertNotEmpty(Manager& manager) 
+bool assertNotEmpty(Manager& manager) 
 {
 	if (manager.IsEmpty())
 	{
-		throw "Invalid! requested operation cannot be executed when empty";
+		cout << "wrong input" << endl;
+		return true;
 	}
+
+	return false;
 }
 
 int main()
@@ -21,7 +24,8 @@ int main()
 
 	if (numOfInstructions <= 0)
 	{
-		throw  "First input must be a positive integer";
+		cout << "wrong input" << endl;
+		return 0;
 	}
 
 	string command;
@@ -33,33 +37,39 @@ int main()
 
 		if (i == 0 && instructionType != 'e')
 		{
-			throw "e command must be executed before any other command";
+			cout << "wrong input" << endl;
+			return 0;
 		}
 
 		if (i != 0 && instructionType == 'e')
 		{
-			throw "e command can be executed only once";
+			cout << "wrong input" << endl;
+			return 0;
 		}
 
 
 		if (instructionType == 'a')
 		{
-			assertNotEmpty(manager);
+			if(assertNotEmpty(manager))
+				return 0;
 			manager.Max();
 		}
 		else if (instructionType == 'b')
 		{
-			assertNotEmpty(manager);
+			if (assertNotEmpty(manager))
+				return 0;
 			manager.DeleteMax();
 		}
 		else if (instructionType == 'c')
 		{
-			assertNotEmpty(manager);
+			if (assertNotEmpty(manager))
+				return 0;
 			manager.Min();
 		}
 		else if (instructionType == 'd')
 		{
-			assertNotEmpty(manager);
+			if (assertNotEmpty(manager))
+				return 0;
 			manager.DeleteMin();
 		}
 		else if (instructionType == 'e')
@@ -73,8 +83,14 @@ int main()
 			int priority;
 			string data;
 			iss >> type >> priority;
+			
 			getline(iss >> ws, data);
 
+			if (iss.fail())
+			{
+				cout << "wrong input" << endl;
+				return 0;
+			}
 			manager.Insert(priority, data);
 		}
 		else if (instructionType == 'g')
@@ -83,8 +99,16 @@ int main()
 			manager.Median();
 		}
 		else {
-			throw "Invalid Command! make sure you start with one of [a-g] letters";
+			cout << "wrong input" << endl;
+			return 0;
 		}
+	}
+
+
+	getline(cin, command);
+	if (command != "")
+	{
+		cout << "wrong input" << endl;
 	}
 
 	return 0;

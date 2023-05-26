@@ -75,7 +75,14 @@ void Manager::Max() {
 
 void Manager::Median()
 {
-	printNode(this->upperMinHeap.Extreme());
+	if (this->upperMinHeap.getSize() == this->lowerMinHeap.getSize())
+	{
+		printNode(this->lowerMaxHeap.Extreme());
+	}
+	else
+	{
+		printNode(this->upperMinHeap.Extreme());
+	}
 }
 
 void Manager::Min() {
