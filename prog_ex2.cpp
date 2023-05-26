@@ -12,7 +12,7 @@ int main() {
     max_heap.Insert(1, "Dani");
     max_heap.Insert(2, "Maya");
     
-    max_heap.Delete(1);
+    max_heap.DeleteExtreme();
 
     for (int i = 0; i < max_heap.getSize(); i++)
         std::cout << max_heap.getHeap()[i].data << std::endl;
