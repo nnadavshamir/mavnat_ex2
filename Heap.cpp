@@ -23,25 +23,31 @@ void Heap::fixHeapUp(int index) {
 }
 
 void Heap::fixHeapDown(int index) {
-    if (index == count)
+    if (index == count - 1)
         return;
 
     int left_child_index = getLeftChildIndex(index);
     int right_child_index = getRightChildIndex(index);
     int extreme_index = index;
 
-    if (left_child_index < this->count &&
-        ((this->is_max_heap && this->heap[left_child_index].priority > this->heap[extreme_index].priority))
-        || (!this->is_max_heap && this->heap[left_child_index].priority < this->heap[extreme_index].priority))
-        extreme_index = left_child_index;
 
-    if (right_child_index < this->count &&
-        ((this->is_max_heap && this->heap[right_child_index].priority > this->heap[extreme_index].priority))
-        || (!this->is_max_heap && this->heap[right_child_index].priority < this->heap[extreme_index].priority))
-        extreme_index = right_child_index;
+    if (this->is_max_heap) {
+        if (left_child_index < this->count && this->heap[left_child_index].priority > this->heap[extreme_index].priority)
+            extreme_index = left_child_index;
+
+        if (right_child_index < this->count && heap[right_child_index].priority > heap[extreme_index].priority)
+            extreme_index = right_child_index;
+    }
+    else {
+        if (left_child_index < this->count && heap[left_child_index].priority < heap[extreme_index].priority)
+            extreme_index = left_child_index;
+
+        if (right_child_index < this->count && heap[right_child_index].priority < heap[extreme_index].priority)
+            extreme_index = right_child_index;
+    }
 
     if (extreme_index != index) {
-        swap(this->heap[extreme_index], this->heap[index]);
+        std::swap(heap[extreme_index], heap[index]);
         updateSelfIndexInSecondHeap(extreme_index);
         updateSelfIndexInSecondHeap(index);
         fixHeapDown(extreme_index);
@@ -96,13 +102,18 @@ Node Heap::deleteFromSelfOnly(int index) {
         return Node();
     }
 
+    Node removed = this->heap[index];
     swap(this->heap[index], this->heap[this->count - 1]);
     updateSelfIndexInSecondHeap(index);
     updateSelfIndexInSecondHeap(count - 1);
-    Node removed = this->heap[this->count - 1];
 
     this->count--;
-    fixHeapDown(index);
+
+    if (index < getSize()) {
+        fixHeapUp(index);
+        fixHeapDown(index);
+    }
+
     return removed;
 }
 
