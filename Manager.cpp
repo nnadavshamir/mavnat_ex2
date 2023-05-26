@@ -6,3 +6,36 @@ Manager::Manager() : upperMaxHeap(Heap(true)), upperMinHeap(Heap(false)), lowerM
 	lowerMaxHeap.setSecondHeap(&lowerMinHeap);
 	lowerMinHeap.setSecondHeap(&lowerMaxHeap);
 }
+
+void Manager::Max()
+{
+}
+
+void Manager::DeleteMax()
+{
+}
+
+void Manager::Min()
+{
+}
+
+void Manager::DeleteMin()
+{
+}
+
+void Manager::MakeEmpty()
+{
+}
+
+void Manager::Insert(int priority, std::string value)
+{
+}
+
+void Manager::Median()
+{
+}
+
+bool Manager::IsEmpty()
+{
+	return false;
+}

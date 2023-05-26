@@ -5,7 +5,7 @@
 
 using namespace std;
 
-void assertNotEmpty(Manager manager) 
+void assertNotEmpty(Manager& manager) 
 {
 	if (manager.IsEmpty())
 	{
@@ -18,6 +18,7 @@ int main()
 	int numOfInstructions;
 	Manager manager = Manager();
 	cin >> numOfInstructions;
+	cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
 	if (numOfInstructions <= 0)
 	{
