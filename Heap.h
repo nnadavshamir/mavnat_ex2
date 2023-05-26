@@ -5,7 +5,7 @@
 
 class Heap {
 private:
-    Node* heap[MAX_SIZE];
+    Node heap[MAX_SIZE];
     bool is_max_heap;
     int count;
     Heap* second_heap;
@@ -17,19 +17,19 @@ private:
     void updateSelfIndexInSecondHeap(int);
     void fixHeapUp(int);
     void fixHeapDown(int);
-    Node* deleteFromSelfOnly(int);
+    Node deleteFromSelfOnly(int);
     int insertToSelfOnly(int, std::string);
-    int findIndex(Node*);
+    int findIndex(Node&);
 
 public:
     Heap(bool);
     inline bool IsEmpty() const { return this->count == 0; }
-    inline Node** getHeap() { return heap; }
+    inline Node* getHeap() { return heap; }
     inline void setSecondHeap(Heap* value) { this->second_heap = value; }
     inline int getSize() const { return this->count; }
     void MakeEmpty();
-    Node* Extreme();
+    Node Extreme();
     void Insert(int, std::string);
-    inline Node* DeleteExtreme() { return Delete(0); }
-    Node* Delete(int);
+    inline Node DeleteExtreme() { return Delete(0); }
+    Node Delete(int);
 };

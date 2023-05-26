@@ -141,7 +141,6 @@
   <ItemGroup>
     <ClCompile Include="Heap.cpp" />
     <ClCompile Include="Manager.cpp" />
-    <ClCompile Include="Node.cpp" />
     <ClCompile Include="prog_ex2.cpp" />
   </ItemGroup>
   <ItemGroup>
