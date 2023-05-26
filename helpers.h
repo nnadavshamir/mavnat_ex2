@@ -1,5 +1,6 @@
 #pragma once
 #include <iostream>
+#include <string>
 
 #define MAX_SIZE 100
 #define NOT_SET -1

@@ -1,5 +1,4 @@
 #pragma once
-#include <string>
 #include "Heap.h"
 
 class Manager {
