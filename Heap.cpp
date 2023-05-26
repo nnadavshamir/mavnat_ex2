@@ -12,6 +12,7 @@ void Heap::MakeEmpty() {
         this->heap[i] = nullptr;
     }
     
+    setSecondHeap(nullptr);
     this->count = 0;
 }
 
