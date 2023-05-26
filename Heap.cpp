@@ -68,6 +68,8 @@ Node Heap::Extreme() {
 }
 
 void Heap::Insert(int _priority, std::string _data) {
+    if (!this->second_heap) return;
+
     int self_node_index = insertToSelfOnly(_priority, _data);
     int second_heap_node_index = this->second_heap->insertToSelfOnly(_priority, _data);
     
@@ -136,6 +138,8 @@ Node Heap::deleteFromSelfOnly(int index) {
 }
 
 Node Heap::Delete(int index) {
+    if (!this->second_heap) return;
+
     Node removed = deleteFromSelfOnly(index);
     this->second_heap->deleteFromSelfOnly(removed.second_heap_index);
 
