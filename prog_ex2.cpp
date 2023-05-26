@@ -18,7 +18,6 @@ int main()
 	int numOfInstructions;
 	Manager manager = Manager();
 	cin >> numOfInstructions;
-	cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
 	if (numOfInstructions <= 0)
 	{
@@ -29,7 +28,7 @@ int main()
 	char instructionType;
 	for (int i = 0; i < numOfInstructions; i++)
 	{
-		getline(cin, command);
+		getline(cin >> ws, command);
 		instructionType = command[0];
 
 		if (i == 0 && instructionType != 'e')

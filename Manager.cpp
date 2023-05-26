@@ -7,6 +7,11 @@ Manager::Manager() : upperMaxHeap(Heap(true)), upperMinHeap(Heap(false)), lowerM
 	lowerMinHeap.setSecondHeap(&lowerMaxHeap);
 }
 
+
+void printNode(Node node) {
+	std::cout << node.priority << " " << node.data << std::endl;
+}
+
 void Manager::fixUpperLowerIfNeeded()
 {
 	int upperSize = this->upperMaxHeap.getSize();
@@ -29,21 +34,33 @@ void Manager::fixUpperLowerIfNeeded()
 	}
 }
 
+
 void Manager::DeleteMax()
 {
-	this->lowerMinHeap.DeleteExtreme();
+	printNode(this->upperMaxHeap.DeleteExtreme());
 	this->fixUpperLowerIfNeeded();
 }
 
 void Manager::DeleteMin()
 {
-	this->lowerMinHeap.DeleteExtreme();
+	printNode(this->lowerMinHeap.getSize() > 0
+		? this->lowerMinHeap.DeleteExtreme()
+		: this->upperMinHeap.DeleteExtreme());
 	this->fixUpperLowerIfNeeded();
 }
 
 void Manager::Insert(int priority, std::string data)
 {
-	this->upperMaxHeap.Insert(priority, data);
+	// If priority smaller than lower max insert to lower heap
+	if (!this->lowerMaxHeap.IsEmpty() && this->lowerMaxHeap.Extreme().priority > priority)
+	{
+		this->lowerMaxHeap.Insert(priority, data);
+	}
+	else
+	{
+		this->upperMaxHeap.Insert(priority, data);
+	}
+
 	this->fixUpperLowerIfNeeded();
 }
 
@@ -53,20 +70,18 @@ bool Manager::IsEmpty()
 }
 
 void Manager::Max() {
-	std::cout << this->upperMaxHeap.Extreme().data << std::endl;
+	printNode(this->upperMaxHeap.Extreme());
 }
 
 void Manager::Median()
 {
-	std::cout << this->upperMinHeap.Extreme().data << std::endl;
+	printNode(this->upperMinHeap.Extreme());
 }
 
 void Manager::Min() {
-	std::string minData = this->lowerMinHeap.getSize() > 0
-		? this->lowerMinHeap.Extreme().data
-		: this->upperMinHeap.Extreme().data;
-
-	std::cout << minData << std::endl;
+	printNode(this->lowerMinHeap.getSize() > 0
+		? this->lowerMinHeap.Extreme()
+		: this->upperMinHeap.Extreme());
 }
 
 void Manager::MakeEmpty() {
