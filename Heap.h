@@ -18,6 +18,8 @@ private:
     void fixHeapUp(int);
     void fixHeapDown(int);
     Node* deleteFromSelfOnly(int);
+    int insertToSelfOnly(int, std::string);
+    int findIndex(Node*);
 
 public:
     Heap(bool);

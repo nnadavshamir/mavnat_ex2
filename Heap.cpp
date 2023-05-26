@@ -71,11 +71,32 @@ Node* Heap::Extreme() {
 }
 
 void Heap::Insert(int _priority, std::string _data) {
-    Node *new_node = new Node(_priority, _data, NOT_SET);
+    int self_node_index = insertToSelfOnly(_priority, _data);
+    int second_heap_node_index = this->second_heap->insertToSelfOnly(_priority, _data);
+    
+    this->heap[self_node_index]->second_heap_index = second_heap_node_index;
+    this->second_heap->getHeap()[second_heap_node_index]->second_heap_index = self_node_index;
+}
+
+int Heap::findIndex(Node* node_to_search) {
+    // TODO: Change function to acheive O(lg n) complexity
+
+    bool found = false;
+    int i = 0;
+
+    for (; i < this->count && !found; i++)
+        if (this->heap[i] == node_to_search)
+            found = true;
+
+    return found ? i - 1 : NOT_FOUND;
+}
+
+int Heap::insertToSelfOnly(int _priority, std::string _data) {
+    Node* new_node = new Node(_priority, _data, NOT_SET);
     this->heap[this->count++] = new_node;
     fixHeapUp(this->count - 1);
 
-    // TODO: Add to second heap
+    return findIndex(new_node);
 }
 
 Node* Heap::deleteFromSelfOnly(int index) {
