@@ -13,5 +13,7 @@ public:
 	inline bool operator== (const Node& other) {
 		return this->priority == other.priority && this->data == other.data && this->second_heap_index == other.second_heap_index;
 	}
+
+	inline operator std::string() const { return this->data; }
 };
 
