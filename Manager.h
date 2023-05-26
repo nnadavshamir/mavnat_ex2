@@ -1,17 +1,16 @@
 #pragma once
 #include <string>
-#include "MaxHeap.h"
-#include "MinHeap.h"
+#include "Heap.h"
 
-class Manager
-{
+class Manager {
 private:
-	MaxHeap upperMaxHeap;
-	MinHeap upperMinHeap;
-	MaxHeap lowerMaxHeap;
-	MinHeap lowerMinHeap;
+	Heap upperMaxHeap;
+	Heap upperMinHeap;
+	Heap lowerMaxHeap;
+	Heap lowerMinHeap;
 
 public:
+	Manager() : upperMaxHeap(Heap(true)), upperMinHeap(Heap(false)), lowerMaxHeap(Heap(true)), lowerMinHeap(Heap(false)) { }
 	void Max();
 	void DeleteMax();
 	void Min();
