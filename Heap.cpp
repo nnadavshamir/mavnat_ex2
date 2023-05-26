@@ -6,9 +6,9 @@ void Heap::MakeEmpty() {
     this->count = 0;
 }
 
-void Heap::fixHeapUp(int index) {
+int Heap::fixHeapUp(int index) {
     if (index == 0)
-        return;
+        return 0;
 
     int parent_index = getParentIndex(index);
 
@@ -17,16 +17,20 @@ void Heap::fixHeapUp(int index) {
             swap(heap[parent_index], heap[index]);
             updateSelfIndexInSecondHeap(parent_index);
             updateSelfIndexInSecondHeap(index);
-            fixHeapUp(parent_index);
-        }
+            return fixHeapUp(parent_index);
+        } 
+
+        return index;
     }
     else {
         if (heap[parent_index].priority > heap[index].priority) {
             swap(heap[parent_index], heap[index]);
             updateSelfIndexInSecondHeap(parent_index);
             updateSelfIndexInSecondHeap(index);
-            fixHeapUp(parent_index);
+            return fixHeapUp(parent_index);
         }
+
+        return index;
     }
 }
 
@@ -94,43 +98,10 @@ void Heap::Insert(int _priority, std::string _data) {
     this->second_heap->getHeap()[second_heap_node_index].second_heap_index = self_node_index;
 }
 
-int Heap::findIndex(Node& node_to_search) {
-    int left_index = 0, right_index = this->count - 1;
-    int middle;
-    bool found = false;
-    int priority = node_to_search.priority;
-
-    while (left_index <= right_index && !found) {
-        middle = left_index + (right_index - left_index) / 2;
-
-        if (heap[middle].priority == priority)
-            found = true;  // Found the priority in the heap
-        
-        else if (is_max_heap) {
-            if (heap[middle].priority < priority)
-                right_index = middle - 1;  // Search in the left_index half
-            
-            else
-                left_index = middle + 1;  // Search in the right half
-        }
-        else {
-            if (heap[middle].priority > priority)
-                right_index = middle - 1;  // Search in the left_index half
-
-            else
-                left_index = middle + 1;  // Search in the right half
-        }
-    }
-
-    return found ? middle : NOT_FOUND;
-}
-
 int Heap::insertToSelfOnly(int _priority, std::string _data) {
     Node new_node = Node(_priority, _data, NOT_SET);
     this->heap[this->count++] = new_node;
-    fixHeapUp(this->count - 1);
-
-    return findIndex(new_node);
+    return fixHeapUp(this->count - 1);
 }
 
 Node Heap::deleteFromSelfOnly(int index) {

@@ -15,11 +15,10 @@ private:
     inline int getRightChildIndex(int index) { return 2 * index + 2; }
 
     void updateSelfIndexInSecondHeap(int);
-    void fixHeapUp(int);
+    int fixHeapUp(int);
     void fixHeapDown(int);
     Node deleteFromSelfOnly(int);
     int insertToSelfOnly(int, std::string);
-    int findIndex(Node&);
     Node Delete(int);
 
 public:
