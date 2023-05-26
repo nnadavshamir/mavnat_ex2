@@ -142,7 +142,6 @@ Node Heap::deleteFromSelfOnly(int index) {
     Node removed = this->heap[index];
     swap(this->heap[index], this->heap[this->count - 1]);
     updateSelfIndexInSecondHeap(index);
-    updateSelfIndexInSecondHeap(count - 1);
 
     this->count--;
 
