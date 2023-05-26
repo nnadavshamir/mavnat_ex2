@@ -17,5 +17,6 @@ public:
 	void DeleteMin();
 	void Insert(int priority, std::string value);
 	void Median();
+	bool IsEmpty();
 };
 
