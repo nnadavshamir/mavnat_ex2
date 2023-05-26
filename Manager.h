@@ -10,11 +10,11 @@ private:
 
 public:
 	Manager();
-	void Max();
-	void DeleteMax();
-	void Min();
-	void DeleteMin();
 	void MakeEmpty();
+	Node Max();
+	Node Min();
+	void DeleteMax();
+	void DeleteMin();
 	void Insert(int priority, std::string value);
 	void Median();
 };
