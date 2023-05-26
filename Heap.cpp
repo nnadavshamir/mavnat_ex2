@@ -138,7 +138,7 @@ Node Heap::deleteFromSelfOnly(int index) {
 }
 
 Node Heap::Delete(int index) {
-    if (!this->second_heap) return;
+    if (!this->second_heap) return Node();
 
     Node removed = deleteFromSelfOnly(index);
     this->second_heap->deleteFromSelfOnly(removed.second_heap_index);
