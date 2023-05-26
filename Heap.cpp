@@ -3,7 +3,6 @@
 Heap::Heap(bool _is_max_heap) : is_max_heap(_is_max_heap), second_heap(nullptr), count(0) { }
 
 void Heap::MakeEmpty() {  
-    setSecondHeap(nullptr);
     this->count = 0;
 }
 
@@ -55,20 +54,29 @@ void Heap::fixHeapDown(int index) {
 }
 
 void Heap::updateSelfIndexInSecondHeap(int self) {
-    if (!this->second_heap) return;
+    if (!this->second_heap) {
+        std::cout << "Second heap is not set!" << std::endl;
+        return;
+    }
 
     if (self >= 0)
         this->second_heap->getHeap()[this->heap[self].second_heap_index].second_heap_index = self;
 }
 
 Node Heap::Extreme() {
-    if (this->count == 0) return Node();
+    if (this->count == 0) {
+        std::cout << "Heap is empty" << std::endl;
+        return Node();
+    } 
 
     return this->heap[0];
 }
 
 void Heap::Insert(int _priority, std::string _data) {
-    if (!this->second_heap) return;
+    if (!this->second_heap) {
+        std::cout << "Second heap is not set!" << std::endl;
+        return;
+    }
 
     int self_node_index = insertToSelfOnly(_priority, _data);
     int second_heap_node_index = this->second_heap->insertToSelfOnly(_priority, _data);
@@ -138,7 +146,10 @@ Node Heap::deleteFromSelfOnly(int index) {
 }
 
 Node Heap::Delete(int index) {
-    if (!this->second_heap) return Node();
+    if (!this->second_heap) {
+        std::cout << "Second heap is not set!" << std::endl;
+        return Node();
+    }
 
     Node removed = deleteFromSelfOnly(index);
     this->second_heap->deleteFromSelfOnly(removed.second_heap_index);

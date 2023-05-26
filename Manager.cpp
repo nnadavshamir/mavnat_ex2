@@ -7,23 +7,11 @@ Manager::Manager() : upperMaxHeap(Heap(true)), upperMinHeap(Heap(false)), lowerM
 	lowerMinHeap.setSecondHeap(&lowerMaxHeap);
 }
 
-void Manager::Max()
-{
-}
-
 void Manager::DeleteMax()
 {
 }
 
-void Manager::Min()
-{
-}
-
 void Manager::DeleteMin()
-{
-}
-
-void Manager::MakeEmpty()
 {
 }
 
@@ -38,4 +26,29 @@ void Manager::Median()
 bool Manager::IsEmpty()
 {
 	return false;
+}
+
+Node Manager::Max() {
+	if (!this->upperMaxHeap.getSize()) {
+		std::cout << "Heap is empty!" << std::endl;
+		return Node();
+	}
+
+	return this->upperMaxHeap.Extreme();
+}
+
+Node Manager::Min() {
+	if (!this->lowerMinHeap.getSize()) {
+		std::cout << "Heap is empty!" << std::endl;
+		return Node();
+	}
+
+	return this->lowerMinHeap.Extreme();
+}
+
+void Manager::MakeEmpty() {
+	this->lowerMaxHeap.MakeEmpty();
+	this->lowerMinHeap.MakeEmpty();
+	this->upperMaxHeap.MakeEmpty();
+	this->upperMinHeap.MakeEmpty();
 }
