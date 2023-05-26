@@ -76,16 +76,34 @@ void Heap::Insert(int _priority, std::string _data) {
 }
 
 int Heap::findIndex(Node& node_to_search) {
-    // TODO: Change function to acheive O(lg n) complexity
-
+    int left_index = 0, right_index = this->count - 1;
+    int middle;
     bool found = false;
-    int i = 0;
+    int priority = node_to_search.priority;
 
-    for (; i < this->count && !found; i++)
-        if (this->heap[i] == node_to_search)
-            found = true;
+    while (left_index <= right_index && !found) {
+        middle = left_index + (right_index - left_index) / 2;
 
-    return found ? i - 1 : NOT_FOUND;
+        if (heap[middle].priority == priority)
+            found = true;  // Found the priority in the heap
+        
+        else if (is_max_heap) {
+            if (heap[middle].priority < priority)
+                right_index = middle - 1;  // Search in the left_index half
+            
+            else
+                left_index = middle + 1;  // Search in the right half
+        }
+        else {
+            if (heap[middle].priority > priority)
+                right_index = middle - 1;  // Search in the left_index half
+
+            else
+                left_index = middle + 1;  // Search in the right half
+        }
+    }
+
+    return found ? middle : NOT_FOUND;
 }
 
 int Heap::insertToSelfOnly(int _priority, std::string _data) {
