@@ -57,6 +57,8 @@ void Heap::fixHeapDown(int index) {
 }
 
 void Heap::updateSelfIndexInSecondHeap(int self) {
+    if (!this->second_heap) return;
+
     if (self >= 0)
         this->second_heap->getHeap()[this->heap[self]->second_heap_index]->second_heap_index = self;
 }
