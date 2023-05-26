@@ -65,7 +65,7 @@ void Heap::updateSelfIndexInSecondHeap(int self) {
 }
 
 Node* Heap::Extreme() {
-    if (this->count == 0) return;
+    if (this->count == 0) return nullptr;
 
     return this->heap[0];
 }
@@ -102,7 +102,7 @@ int Heap::insertToSelfOnly(int _priority, std::string _data) {
 Node* Heap::deleteFromSelfOnly(int index) {
     if (index >= this->count) {
         std::cout << "Heap is empty!" << std::endl;
-        return;
+        return nullptr;
     }
 
     swap(*this->heap[index], *this->heap[this->count - 1]);

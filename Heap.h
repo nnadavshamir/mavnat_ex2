@@ -26,6 +26,7 @@ public:
     inline bool IsEmpty() const { return this->count == 0; }
     inline Node** getHeap() { return heap; }
     inline void setSecondHeap(Heap* value) { this->second_heap = value; }
+    inline int getSize() const { return this->count; }
     void MakeEmpty();
     Node* Extreme();
     void Insert(int, std::string);
