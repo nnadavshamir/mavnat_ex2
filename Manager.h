@@ -1,20 +1,20 @@
 #pragma once
-#include <string>
+#include "Heap.h"
 
-class Manager
-{
+class Manager {
 private:
-	MaxHeap upperMaxHeap;
-	MinHeap upperMinHeap;
-	MaxHeap lowerMaxHeap;
-	MinHeap lowerMinHeap;
+	Heap upperMaxHeap;
+	Heap upperMinHeap;
+	Heap lowerMaxHeap;
+	Heap lowerMinHeap;
 
 public:
+	Manager();
 	void Max();
 	void DeleteMax();
 	void Min();
 	void DeleteMin();
-	void CreateEmpty();
+	void MakeEmpty();
 	void Insert(int priority, std::string value);
 	void Median();
 	bool IsEmpty();
