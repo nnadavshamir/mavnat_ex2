@@ -12,12 +12,21 @@ void Heap::fixHeapUp(int index) {
 
     int parent_index = getParentIndex(index);
 
-    if ((this->is_max_heap && this->heap[parent_index].priority < this->heap[index].priority)
-        || (!this->is_max_heap && this->heap[parent_index].priority > this->heap[index].priority)) {
-        swap(this->heap[parent_index], this->heap[index]);
-        updateSelfIndexInSecondHeap(parent_index);
-        updateSelfIndexInSecondHeap(index);
-        fixHeapUp(parent_index);
+    if (this->is_max_heap) {
+        if (heap[parent_index].priority < heap[index].priority) {
+            swap(heap[parent_index], heap[index]);
+            updateSelfIndexInSecondHeap(parent_index);
+            updateSelfIndexInSecondHeap(index);
+            fixHeapUp(parent_index);
+        }
+    }
+    else {
+        if (heap[parent_index].priority > heap[index].priority) {
+            swap(heap[parent_index], heap[index]);
+            updateSelfIndexInSecondHeap(parent_index);
+            updateSelfIndexInSecondHeap(index);
+            fixHeapUp(parent_index);
+        }
     }
 }
 
