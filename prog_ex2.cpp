@@ -14,6 +14,6 @@ int main() {
     
     max_heap.DeleteExtreme();
 
-    for (int i = 0; i < max_heap.getSize(); i++)
-        std::cout << max_heap.getHeap()[i].data << std::endl;
+    for (int i = 0; i < min_heap.getSize(); i++)
+        std::cout << min_heap.getHeap()[i].data << std::endl;
 }
