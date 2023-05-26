@@ -78,7 +78,7 @@ void Heap::Insert(int _priority, std::string _data) {
     // TODO: Add to second heap
 }
 
-Node* Heap::Delete(int index) {
+Node* Heap::deleteFromSelfOnly(int index) {
     if (index >= this->count) {
         std::cout << "Heap is empty!" << std::endl;
         return;
@@ -89,9 +89,14 @@ Node* Heap::Delete(int index) {
     updateSelfIndexInSecondHeap(count - 1);
     Node* removed = this->heap[this->count - 1];
 
-    // TODO: Remove from second list
-
     this->count--;
-    fixHeapDown(0);
+    fixHeapDown(index);
+    return removed;
+}
+
+Node* Heap::Delete(int index) {
+    Node* removed = deleteFromSelfOnly(index);
+    this->second_heap->deleteFromSelfOnly(removed->second_heap_index);
+
     return removed;
 }

@@ -17,6 +17,7 @@ private:
     void updateSelfIndexInSecondHeap(int);
     void fixHeapUp(int);
     void fixHeapDown(int);
+    Node* deleteFromSelfOnly(int);
 
 public:
     Heap(bool);
