@@ -11,7 +11,7 @@ void Heap::MakeEmpty() {
 
         this->heap[i] = nullptr;
     }
-
+    
     this->count = 0;
 }
 
@@ -25,7 +25,7 @@ void Heap::fixHeapUp(int index) {
         || (!this->is_max_heap && this->heap[parent_index]->priority > this->heap[index]->priority)) {
         swap(this->heap[parent_index], this->heap[index]);
         updateSelfIndexInSecondHeap(parent_index);
-        updateSelfIndexInSecondHeap(parent_index);
+        updateSelfIndexInSecondHeap(index);
         fixHeapUp(parent_index);
     }
 }
@@ -83,8 +83,9 @@ Node* Heap::Delete(int index) {
         return;
     }
 
-    updateSelfIndexInSecondHeap(this->heap[index]->second_heap_index, 0);
     swap(*this->heap[index], *this->heap[this->count - 1]);
+    updateSelfIndexInSecondHeap(index);
+    updateSelfIndexInSecondHeap(count - 1);
     Node* removed = this->heap[this->count - 1];
 
     // TODO: Remove from second list
