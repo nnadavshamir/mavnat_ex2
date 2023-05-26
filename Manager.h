@@ -9,7 +9,7 @@ private:
 	Heap lowerMinHeap;
 
 public:
-	Manager() : upperMaxHeap(Heap(true)), upperMinHeap(Heap(false)), lowerMaxHeap(Heap(true)), lowerMinHeap(Heap(false)) { }
+	Manager();
 	void Max();
 	void DeleteMax();
 	void Min();
