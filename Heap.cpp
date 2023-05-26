@@ -3,7 +3,6 @@
 Heap::Heap(bool _is_max_heap) : is_max_heap(_is_max_heap), second_heap(nullptr), count(0) { }
 
 void Heap::MakeEmpty() {  
-    setSecondHeap(nullptr);
     this->count = 0;
 }
 
