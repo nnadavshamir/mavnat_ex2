@@ -20,6 +20,7 @@ private:
     Node deleteFromSelfOnly(int);
     int insertToSelfOnly(int, std::string);
     int findIndex(Node&);
+    Node Delete(int);
 
 public:
     Heap(bool);
@@ -27,9 +28,8 @@ public:
     inline Node* getHeap() { return heap; }
     inline void setSecondHeap(Heap* value) { this->second_heap = value; }
     inline int getSize() const { return this->count; }
+    inline Node DeleteExtreme() { return Delete(0); }
     void MakeEmpty();
     Node Extreme();
     void Insert(int, std::string);
-    inline Node DeleteExtreme() { return Delete(0); }
-    Node Delete(int);
 };
