@@ -46,7 +46,7 @@ void Heap::fixHeapDown(int index) {
     }
 
     if (extreme_index != index) {
-        std::swap(heap[extreme_index], heap[index]);
+        swap(heap[extreme_index], heap[index]);
         updateSelfIndexInSecondHeap(extreme_index);
         updateSelfIndexInSecondHeap(index);
         fixHeapDown(extreme_index);
@@ -59,7 +59,7 @@ void Heap::updateSelfIndexInSecondHeap(int self) {
         return;
     }
 
-    if (self >= 0)
+    if (self >= 0 && this->heap[self].second_heap_index != -1)
         this->second_heap->getHeap()[this->heap[self].second_heap_index].second_heap_index = self;
 }
 

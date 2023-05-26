@@ -8,14 +8,16 @@ private:
 	Heap lowerMaxHeap;
 	Heap lowerMinHeap;
 
+	void fixUpperLowerIfNeeded();
 public:
 	Manager();
 	void MakeEmpty();
-	Node Max();
-	Node Min();
+	void Max();
+	void Min();
 	void DeleteMax();
 	void DeleteMin();
 	void Insert(int priority, std::string value);
 	void Median();
+	bool IsEmpty();
 };
 

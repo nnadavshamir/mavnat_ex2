@@ -1,19 +1,92 @@
 ﻿#include <iostream>
-#include "Heap.h"
+#include <string>
+#include "Manager.h"
+#include <sstream>
 
-int main() {
-    Heap max_heap = Heap(true);
-    Heap min_heap = Heap(false);
+using namespace std;
 
-    max_heap.setSecondHeap(&min_heap);
-    min_heap.setSecondHeap(&max_heap);
+void assertNotEmpty(Manager& manager) 
+{
+	if (manager.IsEmpty())
+	{
+		throw "Invalid! requested operation cannot be executed when empty";
+	}
+}
 
-    max_heap.Insert(3, "Eliya");
-    max_heap.Insert(1, "Dani");
-    max_heap.Insert(2, "Maya");
-    
-    max_heap.DeleteExtreme();
+int main()
+{
+	int numOfInstructions;
+	Manager manager = Manager();
+	cin >> numOfInstructions;
+	cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
-    for (int i = 0; i < min_heap.getSize(); i++)
-        std::cout << min_heap.getHeap()[i].data << std::endl;
+	if (numOfInstructions <= 0)
+	{
+		throw  "First input must be a positive integer";
+	}
+
+	string command;
+	char instructionType;
+	for (int i = 0; i < numOfInstructions; i++)
+	{
+		getline(cin, command);
+		instructionType = command[0];
+
+		if (i == 0 && instructionType != 'e')
+		{
+			throw "e command must be executed before any other command";
+		}
+
+		if (i != 0 && instructionType == 'e')
+		{
+			throw "e command can be executed only once";
+		}
+
+
+		if (instructionType == 'a')
+		{
+			assertNotEmpty(manager);
+			manager.Max();
+		}
+		else if (instructionType == 'b')
+		{
+			assertNotEmpty(manager);
+			manager.DeleteMax();
+		}
+		else if (instructionType == 'c')
+		{
+			assertNotEmpty(manager);
+			manager.Min();
+		}
+		else if (instructionType == 'd')
+		{
+			assertNotEmpty(manager);
+			manager.DeleteMin();
+		}
+		else if (instructionType == 'e')
+		{
+			manager.MakeEmpty();
+		}
+		else if (instructionType == 'f')
+		{
+			istringstream iss(command);
+			char type;
+			int priority;
+			string data;
+			iss >> type >> priority;
+			getline(iss >> ws, data);
+
+			manager.Insert(priority, data);
+		}
+		else if (instructionType == 'g')
+		{
+			assertNotEmpty(manager);
+			manager.Median();
+		}
+		else {
+			throw "Invalid Command! make sure you start with one of [a-g] letters";
+		}
+	}
+
+	return 0;
 }
