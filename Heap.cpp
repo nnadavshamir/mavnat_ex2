@@ -110,16 +110,16 @@ Node Heap::deleteFromSelfOnly(int index) {
         return Node();
     }
 
-    Node removed = this->heap[index];
-    swap(this->heap[index], this->heap[this->count - 1]);
-    updateSelfIndexInSecondHeap(index);
 
     this->count--;
+    if(index == this->count)
+        return this->heap[index];
 
-    if (index < getSize()) {
-        fixHeapUp(index);
-        fixHeapDown(index);
-    }
+    Node removed = this->heap[index];
+    swap(this->heap[index], this->heap[this->count]);
+    updateSelfIndexInSecondHeap(index);
+    fixHeapUp(index);
+    fixHeapDown(index);
 
     return removed;
 }
@@ -133,5 +133,5 @@ Node Heap::Delete(int index) {
     Node removed = deleteFromSelfOnly(index);
     this->second_heap->deleteFromSelfOnly(removed.second_heap_index);
 
-    return removed;
+        return removed;
 }
